@@ -52,6 +52,14 @@ export const projects = [
     icon: 'Home',
     tags: ['YAML', 'ESPHome', 'Zigbee', 'IoT'],
   },
+  {
+    key: 'tempsDeFlors',
+    name: 'temps-de-flors-tracker',
+    url: 'https://github.com/edufabra/temps-de-flors-tracker',
+    demo: 'https://flors.eduardfabra.com',
+    icon: 'Flower2',
+    tags: ['JavaScript', 'Leaflet', 'localStorage', 'Safari 9+'],
+  },
 ] as const;
 
 // Years only, so periods need no per-language date formatting. `to: null` means current.

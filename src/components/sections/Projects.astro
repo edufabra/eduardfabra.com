@@ -1,6 +1,8 @@
 ---
 import Blinds from 'lucide-astro/Blinds';
 import Home from 'lucide-astro/Home';
+import Flower2 from 'lucide-astro/Flower2';
+import Globe from 'lucide-astro/Globe';
 import Github from 'lucide-astro/Github';
 import ArrowUpRight from 'lucide-astro/ArrowUpRight';
 import Card from '../Card.astro';
@@ -15,12 +17,12 @@ interface Props {
 
 const { lang } = Astro.props;
 const t = useTranslations(lang);
-const icons = { Blinds, Home };
+const icons = { Blinds, Home, Flower2 };
 ---
 
 <section id="projects" aria-labelledby="projects-title">
 	<SectionHeading id="projects-title" eyebrow={t.projects.eyebrow} title={t.projects.title} intro={t.projects.intro} />
-	<ul class="grid gap-4 md:grid-cols-2">
+	<ul class="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
 		{
 			projects.map((project) => {
 				const Icon = icons[project.icon];
@@ -57,6 +59,20 @@ const icons = { Blinds, Home };
 								<li class="rounded-md border border-edge bg-background px-2 py-1 text-xs text-foreground/80">{tag}</li>
 							))}
 						</ul>
+						{'demo' in project && (
+							<a
+								href={project.demo}
+								target="_blank"
+								rel="noopener noreferrer"
+								class="relative z-10 mt-5 inline-flex items-center gap-2 self-start text-sm font-medium text-accent hover:underline"
+							>
+								<Globe size={16} aria-hidden="true" />
+								{t.projects.openApp}
+								<span class="sr-only">
+									— {copy.title} {t.a11y.externalLink}
+								</span>
+							</a>
+						)}
 					</Card>
 				);
 			})

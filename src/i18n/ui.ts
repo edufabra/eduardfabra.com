@@ -92,8 +92,14 @@ const ca = {
         description:
           'La configuració completa de la meva llar intel·ligent: dispositius Zigbee i Wi-Fi, ESPHome i automatitzacions documentades.',
       },
+      tempsDeFlors: {
+        title: 'Temps de Flors Tracker',
+        description:
+          'Porta al mòbil el planell de paper de Girona Temps de Flors: marca els espais visitats, puntua’ls i segueix el teu progrés en un mapa, sense registre i compatible fins i tot amb tauletes antigues.',
+      },
     },
     viewCode: 'Veure el codi a GitHub',
+    openApp: 'Obre l’app',
     moreOnGithub: 'Més projectes a GitHub',
   },
   experience: {
@@ -213,8 +219,14 @@ const es: Dictionary = {
         description:
           'La configuración completa de mi hogar inteligente: dispositivos Zigbee y Wi-Fi, ESPHome y automatizaciones documentadas.',
       },
+      tempsDeFlors: {
+        title: 'Temps de Flors Tracker',
+        description:
+          'Lleva al móvil el plano de papel de Girona Temps de Flors: marca los espacios visitados, puntúalos y sigue tu progreso en un mapa, sin registro y compatible incluso con tabletas antiguas.',
+      },
     },
     viewCode: 'Ver el código en GitHub',
+    openApp: 'Abrir la app',
     moreOnGithub: 'Más proyectos en GitHub',
   },
   experience: {
@@ -332,8 +344,14 @@ const en: Dictionary = {
         description:
           'The full configuration of my smart home: Zigbee and Wi-Fi devices, ESPHome and documented automations.',
       },
+      tempsDeFlors: {
+        title: 'Temps de Flors Tracker',
+        description:
+          'Takes the paper map of Girona Temps de Flors to your phone: mark the spaces you’ve visited, rate them and track your progress on a map, with no sign-up and support even for old tablets.',
+      },
     },
     viewCode: 'View the code on GitHub',
+    openApp: 'Open the app',
     moreOnGithub: 'More projects on GitHub',
   },
   experience: {
