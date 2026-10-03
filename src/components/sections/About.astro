@@ -1,0 +1,81 @@
+---
+import User from 'lucide-astro/User';
+import Mail from 'lucide-astro/Mail';
+import Github from 'lucide-astro/Github';
+import Linkedin from 'lucide-astro/Linkedin';
+import ArrowUpRight from 'lucide-astro/ArrowUpRight';
+import Card from '../Card.astro';
+import { site } from '../../data/site';
+import { useTranslations } from '../../i18n/utils';
+import type { Lang } from '../../i18n/ui';
+
+interface Props {
+	lang: Lang;
+}
+
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+
+const contacts = [
+	{
+		label: 'LinkedIn',
+		value: site.links.linkedin.replace(/^https?:\/\/(www\.)?/, ''),
+		href: site.links.linkedin,
+		icon: Linkedin,
+		external: true,
+	},
+	{
+		label: 'GitHub',
+		value: site.links.github.replace(/^https?:\/\//, ''),
+		href: site.links.github,
+		icon: Github,
+		external: true,
+	},
+	{ label: t.about.email, value: site.links.email, href: `mailto:${site.links.email}`, icon: Mail, external: false },
+];
+---
+
+<section id="about" aria-labelledby="about-title" class="grid gap-4 lg:grid-cols-5">
+	<Card class="lg:col-span-3">
+		<p class="mb-2 flex items-center gap-2 text-sm font-semibold tracking-widest text-accent uppercase">
+			<User size={16} aria-hidden="true" />
+			{t.about.eyebrow}
+		</p>
+		<h2 id="about-title" class="text-3xl font-semibold tracking-tight text-balance sm:text-4xl">{t.about.title}</h2>
+		<div class="mt-6 space-y-4 text-lg text-pretty text-muted">
+			{t.about.bio.map((paragraph) => <p>{paragraph}</p>)}
+		</div>
+	</Card>
+
+	<Card id="contact" class="flex flex-col lg:col-span-2" aria-labelledby="contact-title">
+		<h3 id="contact-title" class="text-2xl font-semibold tracking-tight">{t.about.contactTitle}</h3>
+		<p class="mt-2 text-muted">{t.about.contactText}</p>
+		<ul class="mt-6 flex flex-1 flex-col gap-3">
+			{
+				contacts.map(({ label, value, href, icon: Icon, external }) => (
+					<li>
+						<a
+							href={href}
+							{...(external && { target: '_blank', rel: 'noopener noreferrer me' })}
+							class="group flex items-center gap-4 rounded-xl border border-edge bg-background p-4 transition-colors hover:border-accent"
+						>
+							<span class="inline-flex size-10 shrink-0 items-center justify-center rounded-lg bg-accent/10 text-accent">
+								<Icon size={20} aria-hidden="true" />
+							</span>
+							<span class="min-w-0 flex-1">
+								<span class="block font-medium">{label}</span>
+								<span class="block truncate text-sm text-muted">{value}</span>
+							</span>
+							{external && <span class="sr-only">{t.a11y.externalLink}</span>}
+							<ArrowUpRight
+								size={18}
+								aria-hidden="true"
+								class="shrink-0 text-muted transition-colors group-hover:text-accent"
+							/>
+						</a>
+					</li>
+				))
+			}
+		</ul>
+	</Card>
+</section>

@@ -1,0 +1,47 @@
+@import "tailwindcss";
+@import "@fontsource-variable/inter";
+
+/* "Midnight Travel" theme tokens */
+@theme {
+  --font-sans: "Inter Variable", "Inter", ui-sans-serif, system-ui, sans-serif;
+
+  --color-background: #09090b; /* zinc-950 */
+  --color-surface: #18181b; /* zinc-900 */
+  --color-edge: #27272a; /* zinc-800 */
+  --color-accent: #3b82f6; /* blue-500 */
+  --color-foreground: #f4f4f5; /* zinc-100 */
+  --color-muted: #a1a1aa; /* zinc-400 */
+}
+
+@layer base {
+  html {
+    color-scheme: dark;
+    scroll-behavior: smooth;
+    scroll-padding-top: 5rem;
+  }
+
+  body {
+    @apply bg-background text-foreground font-sans antialiased;
+  }
+
+  ::selection {
+    @apply bg-accent/40 text-foreground;
+  }
+
+  :focus-visible {
+    @apply outline-2 outline-offset-2 outline-accent;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+
+    *,
+    *::before,
+    *::after {
+      transition-duration: 0.01ms !important;
+      animation-duration: 0.01ms !important;
+    }
+  }
+}

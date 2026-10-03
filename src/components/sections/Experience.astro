@@ -1,0 +1,42 @@
+---
+import Briefcase from 'lucide-astro/Briefcase';
+import Card from '../Card.astro';
+import SectionHeading from '../SectionHeading.astro';
+import { experience } from '../../data/site';
+import { useTranslations } from '../../i18n/utils';
+import type { Lang } from '../../i18n/ui';
+
+interface Props {
+	lang: Lang;
+}
+
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+---
+
+<section id="experience" aria-labelledby="experience-title">
+	<SectionHeading id="experience-title" eyebrow={t.experience.eyebrow} title={t.experience.title} />
+	<ol class="grid gap-4 md:grid-cols-3">
+		{
+			experience.map((job) => (
+				<Card as="li" class="flex flex-col hover:border-zinc-700">
+					<span class="mb-5 inline-flex size-10 items-center justify-center rounded-xl bg-accent/10 text-accent">
+						<Briefcase size={20} aria-hidden="true" />
+					</span>
+					<h3 class="text-xl font-semibold">{job.company}</h3>
+					<p class="mt-3 flex-1 text-muted">{t.experience.items[job.key].description}</p>
+					<ol class="mt-5 space-y-3 border-t border-edge pt-4">
+						{job.roles.map((role) => (
+							<li>
+								<p class="font-medium text-accent">{t.experience.roles[role.key]}</p>
+								<p class="text-sm text-muted">
+									{role.from} – {role.to ?? t.experience.present}
+								</p>
+							</li>
+						))}
+					</ol>
+				</Card>
+			))
+		}
+	</ol>
+</section>

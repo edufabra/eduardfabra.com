@@ -1,0 +1,17 @@
+---
+import type { HTMLAttributes } from 'astro/types';
+
+type Props = HTMLAttributes<'div'> & { as?: 'div' | 'article' | 'li' };
+
+const { as: Tag = 'div', class: className, ...rest } = Astro.props;
+---
+
+<Tag
+	class:list={[
+		'rounded-2xl border border-edge bg-surface p-6 transition-colors duration-300 sm:p-8',
+		className,
+	]}
+	{...rest}
+>
+	<slot />
+</Tag>

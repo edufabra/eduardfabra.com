@@ -1,0 +1,35 @@
+---
+import { languages, type Lang } from '../i18n/ui';
+import { localeUrl, useTranslations } from '../i18n/utils';
+
+interface Props {
+	lang: Lang;
+}
+
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+---
+
+<nav aria-label={t.a11y.language}>
+	<ul class="flex items-center gap-1 rounded-full border border-edge bg-surface p-1 text-xs font-semibold">
+		{
+			(Object.entries(languages) as [Lang, string][]).map(([code, label]) => (
+				<li>
+					<a
+						href={localeUrl(code)}
+						lang={code}
+						hreflang={code}
+						aria-current={code === lang ? 'page' : undefined}
+						class:list={[
+							'block rounded-full px-2.5 py-1 uppercase transition-colors',
+							code === lang ? 'bg-accent text-white' : 'text-muted hover:text-foreground',
+						]}
+					>
+						<span aria-hidden="true">{code}</span>
+						<span class="sr-only">{label}</span>
+					</a>
+				</li>
+			))
+		}
+	</ul>
+</nav>

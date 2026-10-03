@@ -1,0 +1,32 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Header from './Header.astro';
+import Footer from './Footer.astro';
+import Hero from './sections/Hero.astro';
+import Vialyst from './sections/Vialyst.astro';
+import TechStack from './sections/TechStack.astro';
+import About from './sections/About.astro';
+import Projects from './sections/Projects.astro';
+import Experience from './sections/Experience.astro';
+import type { Lang } from '../i18n/ui';
+
+interface Props {
+	lang: Lang;
+}
+
+const { lang } = Astro.props;
+---
+
+<Layout lang={lang}>
+	<div id="top"></div>
+	<Header lang={lang} />
+	<main id="main" tabindex="-1" class="mx-auto flex max-w-6xl flex-col gap-20 px-4 py-8 sm:px-6 sm:py-12 lg:gap-28">
+		<Hero lang={lang} />
+		<Vialyst lang={lang} />
+		<TechStack lang={lang} />
+		<About lang={lang} />
+		<Projects lang={lang} />
+		<Experience lang={lang} />
+	</main>
+	<Footer lang={lang} />
+</Layout>

@@ -1,0 +1,75 @@
+---
+import Blinds from 'lucide-astro/Blinds';
+import Home from 'lucide-astro/Home';
+import Github from 'lucide-astro/Github';
+import ArrowUpRight from 'lucide-astro/ArrowUpRight';
+import Card from '../Card.astro';
+import SectionHeading from '../SectionHeading.astro';
+import { projects, site } from '../../data/site';
+import { useTranslations } from '../../i18n/utils';
+import type { Lang } from '../../i18n/ui';
+
+interface Props {
+	lang: Lang;
+}
+
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+const icons = { Blinds, Home };
+---
+
+<section id="projects" aria-labelledby="projects-title">
+	<SectionHeading id="projects-title" eyebrow={t.projects.eyebrow} title={t.projects.title} intro={t.projects.intro} />
+	<ul class="grid gap-4 md:grid-cols-2">
+		{
+			projects.map((project) => {
+				const Icon = icons[project.icon];
+				const copy = t.projects.items[project.key];
+				return (
+					<Card as="li" class="group relative flex flex-col hover:border-accent/60">
+						<div class="flex items-start justify-between gap-4">
+							<span class="inline-flex size-12 items-center justify-center rounded-xl bg-accent/10 text-accent">
+								<Icon size={24} aria-hidden="true" />
+							</span>
+							<ArrowUpRight
+								size={20}
+								aria-hidden="true"
+								class="text-muted transition-all group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-accent"
+							/>
+						</div>
+						<h3 class="mt-6 text-xl font-semibold">
+							<a
+								href={project.url}
+								target="_blank"
+								rel="noopener noreferrer"
+								class="after:absolute after:inset-0 after:rounded-2xl focus-visible:outline-none focus-visible:after:outline-2 focus-visible:after:outline-offset-2 focus-visible:after:outline-accent"
+							>
+								{copy.title}
+								<span class="sr-only">
+									— {t.projects.viewCode} {t.a11y.externalLink}
+								</span>
+							</a>
+						</h3>
+						<p class="mt-1 font-mono text-xs text-muted">edufabra/{project.name}</p>
+						<p class="mt-3 flex-1 text-muted">{copy.description}</p>
+						<ul class="mt-5 flex flex-wrap gap-2">
+							{project.tags.map((tag) => (
+								<li class="rounded-md border border-edge bg-background px-2 py-1 text-xs text-foreground/80">{tag}</li>
+							))}
+						</ul>
+					</Card>
+				);
+			})
+		}
+	</ul>
+	<a
+		href={site.links.github}
+		target="_blank"
+		rel="noopener noreferrer"
+		class="mt-6 inline-flex items-center gap-2 font-medium text-accent hover:underline"
+	>
+		<Github size={18} aria-hidden="true" />
+		{t.projects.moreOnGithub}
+		<span class="sr-only">{t.a11y.externalLink}</span>
+	</a>
+</section>

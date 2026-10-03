@@ -1,0 +1,49 @@
+---
+import Server from 'lucide-astro/Server';
+import ShoppingCart from 'lucide-astro/ShoppingCart';
+import Cloud from 'lucide-astro/Cloud';
+import Database from 'lucide-astro/Database';
+import Palette from 'lucide-astro/Palette';
+import Wrench from 'lucide-astro/Wrench';
+import Card from '../Card.astro';
+import SectionHeading from '../SectionHeading.astro';
+import { localize, stack } from '../../data/site';
+import { useTranslations } from '../../i18n/utils';
+import type { Lang } from '../../i18n/ui';
+
+interface Props {
+	lang: Lang;
+}
+
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+const icons = { Server, ShoppingCart, Cloud, Database, Palette, Wrench };
+---
+
+<section id="stack" aria-labelledby="stack-title">
+	<SectionHeading id="stack-title" eyebrow={t.stack.eyebrow} title={t.stack.title} intro={t.stack.intro} />
+	<ul class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+		{
+			stack.map((group) => {
+				const Icon = icons[group.icon];
+				return (
+					<Card as="li" class="hover:border-zinc-700">
+						<h3 class="flex items-center gap-3 font-semibold">
+							<span class="inline-flex size-9 items-center justify-center rounded-lg bg-accent/10 text-accent">
+								<Icon size={18} aria-hidden="true" />
+							</span>
+							{t.stack.groups[group.key]}
+						</h3>
+						<ul class="mt-5 flex flex-wrap gap-2">
+							{group.items.map((item) => (
+								<li class="rounded-lg border border-edge bg-background px-3 py-1.5 text-sm text-foreground/90">
+									{localize(item, lang)}
+								</li>
+							))}
+						</ul>
+					</Card>
+				);
+			})
+		}
+	</ul>
+</section>

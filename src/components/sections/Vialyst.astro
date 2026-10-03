@@ -1,0 +1,79 @@
+---
+import Sparkles from 'lucide-astro/Sparkles';
+import WifiOff from 'lucide-astro/WifiOff';
+import Headphones from 'lucide-astro/Headphones';
+import Map from 'lucide-astro/Map';
+import CloudSun from 'lucide-astro/CloudSun';
+import ListChecks from 'lucide-astro/ListChecks';
+import Gift from 'lucide-astro/Gift';
+import ArrowUpRight from 'lucide-astro/ArrowUpRight';
+import Card from '../Card.astro';
+import { site } from '../../data/site';
+import { useTranslations } from '../../i18n/utils';
+import type { Lang } from '../../i18n/ui';
+
+interface Props {
+	lang: Lang;
+}
+
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+const featureIcons = [WifiOff, Headphones, Map, CloudSun, ListChecks, Gift];
+const tech = ['Astro', 'PWA', 'Tailwind CSS', 'Cloudflare Workers', 'Leaflet', 'Open-Meteo'];
+const isExternalDemo = site.links.vialystDemo.startsWith('http');
+---
+
+<section id="vialyst" aria-labelledby="vialyst-title" class="grid gap-4 md:grid-cols-3">
+	<Card class="relative overflow-hidden md:col-span-3 lg:p-12">
+		<div
+			aria-hidden="true"
+			class="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_bottom_left,--theme(--color-accent/0.15),transparent_60%)]"
+		>
+		</div>
+		<div class="relative flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
+			<div class="max-w-2xl">
+				<p class="mb-2 flex items-center gap-2 text-sm font-semibold tracking-widest text-accent uppercase">
+					<Sparkles size={16} aria-hidden="true" />
+					{t.vialyst.eyebrow}
+				</p>
+				<h2 id="vialyst-title" class="text-3xl font-semibold tracking-tight sm:text-4xl">{t.vialyst.title}</h2>
+				<p class="mt-4 text-lg text-pretty text-muted">{t.vialyst.description}</p>
+				<ul class="mt-6 flex flex-wrap gap-2" aria-label="Stack">
+					{
+						tech.map((item) => (
+							<li class="rounded-lg border border-edge bg-background px-3 py-1.5 text-sm text-foreground/90">{item}</li>
+						))
+					}
+				</ul>
+			</div>
+			{
+				isExternalDemo && (
+					<a
+						href={site.links.vialystDemo}
+						target="_blank"
+						rel="noopener noreferrer"
+						class="inline-flex shrink-0 items-center justify-center gap-2 rounded-xl bg-accent px-5 py-3 font-medium text-white transition-colors hover:bg-blue-600"
+					>
+						{t.vialyst.cta}
+						<span class="sr-only">{t.a11y.externalLink}</span>
+						<ArrowUpRight size={18} aria-hidden="true" />
+					</a>
+				)
+			}
+		</div>
+	</Card>
+	{
+		t.vialyst.features.map((feature, i) => {
+			const Icon = featureIcons[i];
+			return (
+				<Card as="article">
+					<span class="mb-4 inline-flex size-10 items-center justify-center rounded-xl bg-accent/10 text-accent">
+						<Icon size={20} aria-hidden="true" />
+					</span>
+					<h3 class="font-semibold">{feature.title}</h3>
+					<p class="mt-1 text-muted">{feature.text}</p>
+				</Card>
+			);
+		})
+	}
+</section>
